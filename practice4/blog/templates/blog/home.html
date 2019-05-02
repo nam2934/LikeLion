@@ -1,0 +1,7 @@
+<form action="/post", method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <div>
+        <button type="submit">게시물 작성하기</button>
+    </div>
+</form>
