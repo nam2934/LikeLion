@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -12,3 +13,9 @@ class Blog(models.Model):
     
     def summary(self):
         return self.body[:100]
+
+class Comment(models.Model):
+    post = models.ForeignKey("Blog", on_delete=models.CASCADE, related_name="comments")
+    author = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(default = timezone.now)

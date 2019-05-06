@@ -25,11 +25,32 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
-            <h1>{{ blog.title }}</h1>
-            <p>{{ blog.pub_date }}</p>
-            <p>{{ blog.body}}</p>
-            <a href="{% url 'home' %}">돌아가기</a>
+        <div class="card border-dark mb-3" style="width: 90%; margin: 10px">
+                <div class="card-body">
+                    <h5 class="card-title">{{blog.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{blog.pub_date}}</h6>
+                    <p class="card-text">{{blog.body}}</p>
+                    <a href="{% url 'home' %}">돌아가기</a>
+                    <br><br>
+                    <a class="btn btn-dark" href="{% url 'create_comment' pk=blog.pk %}">
+                        댓글 작성하기
+                    </a>
+                    <hr>
+                    {% for comment in blog.comments.all %}
+                    <div class="card border-dark mb-3">
+                        <div class="card-body">
+                            <div class = "card-subtitle mb-2 text-muted">{{ comment.created_date }}</div>
+                            <h5 class="card-title">{{ comment.author }}</h5>
+                            <p class="card-text">{{comment.text|linebreaks}}</p>
+                        </div>
+                        <br>
+                    </div>
+                        
+                    {% empty %}
+                        <p>No comments here yet :(</p>
+                    {% endfor %}
+                </div>
+            </div>            
         </div>
     </body>
 </html>
